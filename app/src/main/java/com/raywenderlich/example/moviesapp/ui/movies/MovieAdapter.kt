@@ -9,12 +9,17 @@ import com.raywenderlich.example.moviesapp.ui.ItemTouchHelperListener
 import java.util.*
 
 class MovieAdapter(
-    private val onMovieSelected: (Movie) -> Unit
+    private val onMovieSelected: (Movie) -> Unit,
+    private val onItemSwipeListener: OnItemSwipeListener
 ) :
     RecyclerView.Adapter<MovieViewHolder>(), ItemTouchHelperListener {
 
     private val movies = mutableListOf<Movie>()
     private val repository by lazy {App.repository}
+
+    interface OnItemSwipeListener {
+        fun onItemSwipe(movie: Movie)
+    }
 
     fun setData(newMovies: List<Movie>) {
         movies.clear()
@@ -52,7 +57,7 @@ class MovieAdapter(
         movies.removeAt(position)
 
         //TODO add this with a ViewModel and observe data in order to improve
-//        repository.deleteMovie(movie)
+        onItemSwipeListener.onItemSwipe(movie)
         notifyItemRemoved(position)
 
     }
