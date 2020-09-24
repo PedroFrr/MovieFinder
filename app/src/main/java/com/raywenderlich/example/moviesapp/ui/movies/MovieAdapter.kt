@@ -10,7 +10,7 @@ import java.util.*
 
 class MovieAdapter(
     private val onMovieSelected: (Movie) -> Unit,
-    private val onItemSwipeListener: OnItemSwipeListener
+    private val onMovieSwiped: (Movie) -> Unit
 ) :
     RecyclerView.Adapter<MovieViewHolder>(), ItemTouchHelperListener {
 
@@ -55,9 +55,7 @@ class MovieAdapter(
     override fun onItemDismiss(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val movie = movies[position]
         movies.removeAt(position)
-
-        //TODO add this with a ViewModel and observe data in order to improve
-        onItemSwipeListener.onItemSwipe(movie)
+        onMovieSwiped(movie)
         notifyItemRemoved(position)
 
     }

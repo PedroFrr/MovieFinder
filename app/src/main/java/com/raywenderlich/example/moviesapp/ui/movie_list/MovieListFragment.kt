@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 class MovieListFragment : Fragment(), MovieAdapter.OnItemSwipeListener {
 
     private val repository by lazy { App.repository }
-    private val adapter by lazy { MovieAdapter(::onMovieSelected, this) }
+    private val adapter by lazy { MovieAdapter(::onMovieSelected, ::onMovieSwipe) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,9 +98,14 @@ class MovieListFragment : Fragment(), MovieAdapter.OnItemSwipeListener {
 
     private fun showLoginFragment() = view?.let { Navigation.findNavController(it).navigate(R.id.mainToLogin) }
 
-    private fun deleteMovie(movie: Movie) = lifecycleScope.launch { repository.deleteMovie(movie) }
-
     override fun onItemSwipe(movie: Movie) {
+        lifecycleScope.launch {
+            repository.deleteMovie(movie)
+            loadMovieList()
+        }
+    }
+
+    private fun onMovieSwipe(movie: Movie) {
         lifecycleScope.launch {
             repository.deleteMovie(movie)
             loadMovieList()
