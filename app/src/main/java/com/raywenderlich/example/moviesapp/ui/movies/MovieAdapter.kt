@@ -9,16 +9,21 @@ import com.raywenderlich.example.moviesapp.R
 import com.raywenderlich.example.moviesapp.ui.ItemTouchHelperListener
 import java.util.*
 
-class MovieAdapter(private var movies: MutableList<Movie>, val clickListener: MovieClickListener) :
+class MovieAdapter(private val clickListener: MovieClickListener) :
     RecyclerView.Adapter<MovieViewHolder>(), ItemTouchHelperListener {
 
-    private val repository by lazy {
-        App.repository
-    }
+    private val repository by lazy { App.repository }
+    private val movies = mutableListOf<Movie>()
 
 
     interface MovieClickListener {
         fun listItemClicked(movieId: String)
+    }
+
+    fun setData(newMovies: List<Movie>) {
+        movies.clear()
+        movies.addAll(newMovies)
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
