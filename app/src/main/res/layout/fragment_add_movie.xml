@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.addMovie.AddMovieFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/moviePosterPlaceholder"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/movie_placeholder" />
+
+        <EditText
+            android:id="@+id/movieTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:hint="@string/movie_title_hint"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences" />
+
+        <EditText
+            android:id="@+id/movieReleaseDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:hint="@string/movie_summary_hint"
+            android:importantForAutofill="no"
+            android:inputType="date" />
+
+        <EditText
+            android:id="@+id/movieSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:hint="@string/movie_description_hint"
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine"
+            android:maxLength="240" />
+
+
+        <Button
+            android:id="@+id/addMovie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:background="@color/colorPrimary"
+            android:text="@string/add_movie_button_text"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+
+
+</FrameLayout>
