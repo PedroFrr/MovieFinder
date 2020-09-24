@@ -1,6 +1,5 @@
 package com.raywenderlich.example.moviesapp.ui.movies
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,16 +8,13 @@ import com.raywenderlich.example.moviesapp.R
 import com.raywenderlich.example.moviesapp.ui.ItemTouchHelperListener
 import java.util.*
 
-class MovieAdapter(private val clickListener: MovieClickListener) :
+class MovieAdapter(
+    private val onMovieSelected: (Movie) -> Unit
+) :
     RecyclerView.Adapter<MovieViewHolder>(), ItemTouchHelperListener {
 
-    private val repository by lazy { App.repository }
     private val movies = mutableListOf<Movie>()
-
-
-    interface MovieClickListener {
-        fun listItemClicked(movieId: String)
-    }
+    private val repository by lazy {App.repository}
 
     fun setData(newMovies: List<Movie>) {
         movies.clear()
@@ -33,23 +29,11 @@ class MovieAdapter(private val clickListener: MovieClickListener) :
         return MovieViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        holder.movieImageView?.setImageResource(movies[position].poster)
-        holder.movieTitleTextVIew?.text = movies[position].title
-        holder.itemView.setOnClickListener {
-            clickListener.listItemClicked(movies[position].id)
-        }
-    }
+    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = holder.showData(movies[position], onMovieSelected)
 
-    override fun getItemCount(): Int {
-        return movies.size
-    }
+    override fun getItemCount(): Int = movies.size
 
-    override fun onItemMove(
-        recyclerView: RecyclerView,
-        fromPosition: Int,
-        toPosition: Int
-    ): Boolean {
+    override fun onItemMove(recyclerView: RecyclerView, fromPosition: Int, toPosition: Int): Boolean {
         if (fromPosition < toPosition) {
             for (i in fromPosition until toPosition) {
                 Collections.swap(movies, i, i + 1)
@@ -59,7 +43,6 @@ class MovieAdapter(private val clickListener: MovieClickListener) :
                 Collections.swap(movies, i, i)
             }
         }
-
         notifyItemMoved(fromPosition, toPosition)
         return true
     }

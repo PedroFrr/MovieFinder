@@ -12,21 +12,16 @@ import com.raywenderlich.example.moviesapp.App
 import com.raywenderlich.example.moviesapp.R
 import com.raywenderlich.example.moviesapp.database.common.utils.prefs.SharedPrefManager
 import com.raywenderlich.example.moviesapp.ui.ItemTouchHelperCallback
+import com.raywenderlich.example.moviesapp.ui.movies.Movie
 import com.raywenderlich.example.moviesapp.ui.movies.MovieAdapter
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 import kotlinx.coroutines.launch
 
 
-class MovieListFragment : Fragment(), MovieAdapter.MovieClickListener {
+class MovieListFragment : Fragment() {
 
     private val repository by lazy { App.repository }
-    private val adapter by lazy { MovieAdapter(this) }
-
-    companion object {
-        fun newInstance(): MovieListFragment {
-            return MovieListFragment()
-        }
-    }
+    private val adapter by lazy { MovieAdapter(::onMovieSelected) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,14 +59,13 @@ class MovieListFragment : Fragment(), MovieAdapter.MovieClickListener {
     }
 
     private fun loadMovieList(){
-        //TODO ver se funciona
         lifecycleScope.launch { adapter.setData(repository.getMovies()) }
     }
 
     private fun isUserLoggedIn(): Boolean = SharedPrefManager().isUserLoggedIn()
 
-    override fun listItemClicked(movieId: String) {
-        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movieId)
+    private fun onMovieSelected(movie: Movie) {
+        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movie.id )
         view?.findNavController()?.navigate(action)
     }
 
@@ -103,12 +97,5 @@ class MovieListFragment : Fragment(), MovieAdapter.MovieClickListener {
     private fun showAddMovieFragment() = view?.let { Navigation.findNavController(it).navigate(R.id.mainToAddMovie) }
 
     private fun showLoginFragment() = view?.let { Navigation.findNavController(it).navigate(R.id.mainToLogin) }
-
-//    private fun onMovieSelected(movieId: String){
-//        val action =
-//            MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(movieId)
-//        view?.findNavController()?.navigate(action)
-//    }
-
 
 }

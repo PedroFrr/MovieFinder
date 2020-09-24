@@ -6,9 +6,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_item_movie.view.*
 
-class MovieViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    var movieImageView: ImageView? = itemView.movieImage
-    var movieTitleTextVIew: TextView? = itemView.movieTitle
+
+    fun showData(
+        movie: Movie,
+        onMovieSelected : (Movie) -> Unit
+    ) = with(itemView) {
+        movieImage.setImageResource(movie.poster)
+        movieTitle.text = movie.title
+
+        setOnClickListener { onMovieSelected(movie) }
+    }
 
 }
