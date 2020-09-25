@@ -1,4 +1,4 @@
-package com.raywenderlich.example.moviesapp.database.common.utils.prefs
+package com.raywenderlich.example.moviesapp.utils.prefs
 
 import android.content.Context
 import com.raywenderlich.example.moviesapp.App

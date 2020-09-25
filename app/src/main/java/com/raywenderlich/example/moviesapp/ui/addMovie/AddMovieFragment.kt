@@ -4,23 +4,18 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.FileProvider.getUriForFile
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.raywenderlich.example.moviesapp.App
-import com.raywenderlich.example.moviesapp.BuildConfig
 import com.raywenderlich.example.moviesapp.R
 import com.raywenderlich.example.moviesapp.ui.movies.Movie
-import com.raywenderlich.memeify.BitmapResizer
 import kotlinx.android.synthetic.main.fragment_add_movie.*
 import kotlinx.coroutines.launch
-import java.io.File
 
 class AddMovieFragment : Fragment() {
 

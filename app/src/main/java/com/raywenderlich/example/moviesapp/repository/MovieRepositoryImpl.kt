@@ -1,5 +1,6 @@
 package com.raywenderlich.example.moviesapp.repository
 
+import androidx.lifecycle.LiveData
 import com.raywenderlich.example.moviesapp.database.dao.MovieDao
 import com.raywenderlich.example.moviesapp.ui.movies.Movie
 
@@ -7,7 +8,7 @@ class MovieRepositoryImpl(
     private val movieDao: MovieDao
 ): MovieRepository {
 
-    override suspend fun getMovies(): List<Movie> = movieDao.getMovies()
+    override fun getMovies(): LiveData<List<Movie>> = movieDao.getMovies()
 
     override suspend fun getMovieById(movieId: String): Movie = movieDao.getMovieById(movieId)
 

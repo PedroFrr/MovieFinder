@@ -1,4 +1,4 @@
-package com.raywenderlich.example.moviesapp.database.common.utils
+package com.raywenderlich.example.moviesapp.utils
 
 import android.app.Activity
 import android.content.Context

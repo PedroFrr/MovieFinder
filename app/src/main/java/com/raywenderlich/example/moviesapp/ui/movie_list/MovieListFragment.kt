@@ -3,6 +3,8 @@ package com.raywenderlich.example.moviesapp.ui.movie_list
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -10,7 +12,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.raywenderlich.example.moviesapp.App
 import com.raywenderlich.example.moviesapp.R
-import com.raywenderlich.example.moviesapp.database.common.utils.prefs.SharedPrefManager
+import com.raywenderlich.example.moviesapp.utils.prefs.SharedPrefManager
 import com.raywenderlich.example.moviesapp.ui.ItemTouchHelperCallback
 import com.raywenderlich.example.moviesapp.ui.movies.Movie
 import com.raywenderlich.example.moviesapp.ui.movies.MovieAdapter
@@ -59,7 +61,13 @@ class MovieListFragment : Fragment(), MovieAdapter.OnItemSwipeListener {
     }
 
     private fun loadMovieList(){
-        lifecycleScope.launch { adapter.setData(repository.getMovies()) }
+        val movieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
+        activity?.let{
+            movieViewModel.getMovies().observe(it, Observer<List<Movie>> { movies ->
+                adapter.setData(movies)
+            })
+        }
+
     }
 
     private fun isUserLoggedIn(): Boolean = SharedPrefManager().isUserLoggedIn()

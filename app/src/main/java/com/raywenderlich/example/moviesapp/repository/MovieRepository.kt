@@ -1,10 +1,11 @@
 package com.raywenderlich.example.moviesapp.repository
 
+import androidx.lifecycle.LiveData
 import com.raywenderlich.example.moviesapp.ui.movies.Movie
 
 interface MovieRepository {
 
-    suspend fun getMovies(): List<Movie>
+    fun getMovies(): LiveData<List<Movie>>
 
     suspend fun getMovieById(movieId: String): Movie
 

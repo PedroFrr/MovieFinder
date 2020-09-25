@@ -1,16 +1,14 @@
 package com.raywenderlich.example.moviesapp.ui.login
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.raywenderlich.example.moviesapp.R
-import com.raywenderlich.example.moviesapp.database.common.utils.hideKeyboard
-import com.raywenderlich.example.moviesapp.database.common.utils.prefs.SharedPrefManager
+import com.raywenderlich.example.moviesapp.utils.hideKeyboard
+import com.raywenderlich.example.moviesapp.utils.prefs.SharedPrefManager
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
