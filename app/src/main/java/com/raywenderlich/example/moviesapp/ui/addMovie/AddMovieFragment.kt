@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 class AddMovieFragment : Fragment() {
 
     private val repository by lazy {
-        App.repository
+        App.movieRepository
     }
 
     private var pictureTaken: Boolean = false

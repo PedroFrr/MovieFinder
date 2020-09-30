@@ -6,6 +6,8 @@ import com.raywenderlich.example.moviesapp.networking.RemoteApi
 import com.raywenderlich.example.moviesapp.networking.buildApiService
 import com.raywenderlich.example.moviesapp.repository.MovieRepository
 import com.raywenderlich.example.moviesapp.repository.MovieRepositoryImpl
+import com.raywenderlich.example.moviesapp.repository.PokemonRepository
+import com.raywenderlich.example.moviesapp.repository.PokemonRepositoryImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -16,7 +18,8 @@ class App() : Application() {
         private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
         private lateinit var instance: App
         private val database: MovieDatabase by lazy { MovieDatabase.buildDatabase(instance, applicationScope) }
-        val repository: MovieRepository by lazy { MovieRepositoryImpl(database.movieDao()) }
+        val movieRepository: MovieRepository by lazy { MovieRepositoryImpl(database.movieDao()) }
+        val pokemonRemoteApi: PokemonRepository by lazy {PokemonRepositoryImpl(database.pokemonDao())}
         private val service by lazy { buildApiService()}
         val remoteApi by lazy {RemoteApi(service)}
 

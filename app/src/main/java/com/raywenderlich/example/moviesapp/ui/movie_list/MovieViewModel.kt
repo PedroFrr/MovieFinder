@@ -9,7 +9,7 @@ import com.raywenderlich.example.moviesapp.ui.movies.Movie
 //TODO implement ViewModel - see the benefits, study this topic
 class MovieViewModel(application: Application): AndroidViewModel(application) {
 
-    private val repository by lazy { App.repository}
+    private val repository by lazy { App.movieRepository}
 
     fun getMovies(): LiveData<List<Movie>> {
         return repository.getMovies()

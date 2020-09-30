@@ -7,6 +7,8 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.raywenderlich.example.moviesapp.R
 import com.raywenderlich.example.moviesapp.database.dao.MovieDao
+import com.raywenderlich.example.moviesapp.database.dao.PokemonDao
+import com.raywenderlich.example.moviesapp.ui.Pokemon
 import com.raywenderlich.example.moviesapp.ui.movies.Movie
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -15,7 +17,7 @@ const val DATABASE_VERSION = 1
 
 @Database(
     version = DATABASE_VERSION,
-    entities = [Movie::class]
+    entities = [Movie::class, Pokemon::class]
 )
 
 abstract class MovieDatabase: RoomDatabase(){
@@ -69,7 +71,7 @@ abstract class MovieDatabase: RoomDatabase(){
                 Movie( releaseDate = "2020-02-11", title = "Steins Gate", summary = "Summary", poster = R.drawable.creature_dog_bone),
                 Movie( releaseDate = "2020-02-11", title = "Hygurashi", summary = "Summary",poster =  R.drawable.creature_duck_yellow_1),
                 Movie( releaseDate = "2020-02-11", title = "Haykyu", summary = "Summary", poster = R.drawable.creature_frog_hungry),
-                Movie( releaseDate = "2020-02-11", title = "Ping pong animation", summary = "Summary", poster = R.drawable.creature_head_fox),
+                Movie( releaseDate = "2020-02-11", title = "Ping pong animation", summary = "Summary", poster = R.drawable.creature_head_fox)
             )
 
             movieDao.addMovies(movies)
@@ -77,4 +79,6 @@ abstract class MovieDatabase: RoomDatabase(){
     }
 
     abstract fun movieDao(): MovieDao
+
+    abstract fun pokemonDao(): PokemonDao
 }
