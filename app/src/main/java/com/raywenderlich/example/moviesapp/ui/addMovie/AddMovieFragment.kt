@@ -27,29 +27,23 @@ class AddMovieFragment : Fragment() {
     private var imageUri: Uri? = null
 
     companion object {
-
-        fun newInstance() = AddMovieFragment()
-
         private const val TAKE_PHOTO_REQUEST_CODE = 1
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_add_movie, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initListeners()
+
+    }
+
+    private fun initListeners(){
         addMovie.setOnClickListener {
-            createMovie(view)
+             createMovie(it)
         }
         moviePosterPlaceholder.setOnClickListener {
             takePictureWithCamera()

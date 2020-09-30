@@ -60,7 +60,7 @@ abstract class MovieDatabase: RoomDatabase(){
 
             val movies = mutableListOf<Movie>(
                 Movie(releaseDate = "2020-02-10", title = "Return", summary = "Summary", poster = R.drawable.creature_app_whistle_1),
-                Movie( releaseDate = "2020-02-10", title =  "Tenet", summary = "Summary", poster = R.drawable.creature_cow_01),
+                Movie( releaseDate = "2020-02-10", title = "Tenet", summary = "Summary", poster = R.drawable.creature_cow_01),
                 Movie( releaseDate = "2020-02-10",title =  "After we Collided", summary = "Summary", poster = R.drawable.creature_bear_sleepy),
                 Movie( releaseDate = "2020-02-13", title = "Unhinged", summary = "Summary",poster =  R.drawable.creature_bird_blue_fly_1),
                 Movie( releaseDate = "2020-02-14", title = "My Hero Academia",summary =  "Summary",poster =  R.drawable.creature_bug_insect_happy),

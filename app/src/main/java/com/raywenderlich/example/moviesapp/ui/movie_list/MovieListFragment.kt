@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_movie_list.*
 import kotlinx.coroutines.launch
 
 
-class MovieListFragment : Fragment(), MovieAdapter.OnItemSwipeListener {
+class MovieListFragment : Fragment() {
 
     private val repository by lazy { App.repository }
     private val adapter by lazy { MovieAdapter(::onMovieSelected, ::onMovieSwipe) }
@@ -106,17 +106,9 @@ class MovieListFragment : Fragment(), MovieAdapter.OnItemSwipeListener {
 
     private fun showLoginFragment() = view?.let { Navigation.findNavController(it).navigate(R.id.mainToLogin) }
 
-    override fun onItemSwipe(movie: Movie) {
-        lifecycleScope.launch {
-            repository.deleteMovie(movie)
-            loadMovieList()
-        }
-    }
-
     private fun onMovieSwipe(movie: Movie) {
         lifecycleScope.launch {
             repository.deleteMovie(movie)
-            loadMovieList()
         }
     }
 

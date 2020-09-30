@@ -15,11 +15,6 @@ class MovieAdapter(
     RecyclerView.Adapter<MovieViewHolder>(), ItemTouchHelperListener {
 
     private val movies = mutableListOf<Movie>()
-    private val repository by lazy {App.repository}
-
-    interface OnItemSwipeListener {
-        fun onItemSwipe(movie: Movie)
-    }
 
     fun setData(newMovies: List<Movie>) {
         movies.clear()
