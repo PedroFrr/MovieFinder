@@ -6,17 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.raywenderlich.example.moviesapp.ui.movies.Movie
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
+import kotlinx.android.synthetic.main.list_item_movie.*
+import kotlinx.android.synthetic.main.list_item_movie.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MovieDetailFragment() : Fragment() {
-
-    private lateinit var movie: Movie
+class PokemonDetailFragment() : Fragment() {
 
     private val repository by lazy {
-        App.movieRepository
+        App.pokemonRepository
     }
 
     override fun onCreateView(
@@ -31,17 +32,25 @@ class MovieDetailFragment() : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            val args = MovieDetailFragmentArgs.fromBundle(it)
-            val movieId = args.movieId
+            val args = PokemonDetailFragmentArgs.fromBundle(it)
+            val pokemonId = args.movieId
 
             lifecycleScope.launch {
-                movie = repository.getMovieById(movieId)
+                val pokemon = repository.getPokemonById(pokemonId)
 
                 launch(context = Dispatchers.Main) {
+                    activity?.let {activity ->
+                        Glide.with(activity)  //2
+                            .load(pokemon.imageUrl) //3
+                            .centerCrop() //4
+                            .placeholder(R.drawable.ic_image_place_holder) //5
+                            .error(R.drawable.ic_broken_image) //6
+                            .fallback(R.drawable.ic_no_image) //7
+                            .into(activity.movieDetailImageView) //8
+                        movieTitleTextView.text = pokemon.name
+                        releaseDateTextView.text = "TBD"
+                    }
 
-                    movieDetailImageView.setImageResource(movie.poster)
-                    movieTitleTextView.text = movie.title
-                    releaseDateTextView.text = movie.releaseDate
                 }
 
             }
@@ -55,10 +64,10 @@ class MovieDetailFragment() : Fragment() {
 
         private const val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
 
-        fun newInstance(movieId: Int): MovieDetailFragment {
+        fun newInstance(movieId: Int): PokemonDetailFragment {
             val bundle = Bundle()
             bundle.putInt(EXTRA_MOVIE_ID, movieId)
-            val fragment = MovieDetailFragment()
+            val fragment = PokemonDetailFragment()
             fragment.arguments = bundle
             return fragment
         }

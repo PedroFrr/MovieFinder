@@ -3,37 +3,32 @@ package com.raywenderlich.example.moviesapp.ui.movies
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.raywenderlich.example.moviesapp.App
 import com.raywenderlich.example.moviesapp.R
 import com.raywenderlich.example.moviesapp.ui.ItemTouchHelperListener
 import com.raywenderlich.example.moviesapp.ui.Pokemon
 import java.util.*
 
-class MovieAdapter(
-    private val onMovieSelected: (Movie) -> Unit,
-    private val onMovieSwiped: (Movie) -> Unit
+class PokemonAdapter(
+    private val onPokemonSelected: (Pokemon) -> Unit,
+    private val onPokemonSwiped: (Pokemon) -> Unit
 ) :
-    RecyclerView.Adapter<MovieViewHolder>(), ItemTouchHelperListener {
-
-//    private val movies = mutableListOf<Movie>()
+    RecyclerView.Adapter<PokemonViewHolder>(), ItemTouchHelperListener {
     private val pokemons = mutableListOf<Pokemon>()
 
     fun setData(newPokemons: List<Pokemon>) {
-//        movies.clear()
-//        movies.addAll(newMovies)
         pokemons.clear()
         pokemons.addAll(newPokemons)
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_movie, parent, false)
 
-        return MovieViewHolder(view)
+        return PokemonViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) = holder.showData(pokemons[position], onMovieSelected)
+    override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) = holder.showData(pokemons[position], onPokemonSelected)
 
     override fun getItemCount(): Int = pokemons.size
 
@@ -54,7 +49,7 @@ class MovieAdapter(
     override fun onItemDismiss(viewHolder: RecyclerView.ViewHolder, position: Int) {
         val pokemon = pokemons[position]
         pokemons.removeAt(position)
-//        onMovieSwiped(pokemon)
+        onPokemonSwiped(pokemon)
         notifyItemRemoved(position)
 
     }

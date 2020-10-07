@@ -7,4 +7,7 @@ import com.raywenderlich.example.moviesapp.ui.Pokemon
 interface PokemonRepository {
 
     suspend fun getPokemons(): LiveData<List<Pokemon>>
+    suspend fun getPokemonById(pokemonId: Int): Pokemon
+    suspend fun deletePokemon(pokemon: Pokemon)
+
 }

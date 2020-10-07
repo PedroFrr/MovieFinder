@@ -9,25 +9,25 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.raywenderlich.example.moviesapp.App
 import com.raywenderlich.example.moviesapp.R
 import com.raywenderlich.example.moviesapp.networking.NetworkStatusChecker
-import com.raywenderlich.example.moviesapp.utils.prefs.SharedPrefManager
 import com.raywenderlich.example.moviesapp.ui.ItemTouchHelperCallback
 import com.raywenderlich.example.moviesapp.ui.Pokemon
-import com.raywenderlich.example.moviesapp.ui.movies.Movie
 import com.raywenderlich.example.moviesapp.ui.movies.PokemonAdapter
 import com.raywenderlich.example.moviesapp.ui.pokemon_list.PokemonViewModel
+import com.raywenderlich.example.moviesapp.utils.prefs.SharedPrefManager
 import kotlinx.android.synthetic.main.fragment_movie_list.*
 import kotlinx.coroutines.launch
 
 
-class MovieListFragment : Fragment() {
+class PokemonListFragment : Fragment() {
 
-    private val repository by lazy { App.movieRepository }
-    private val adapter by lazy { PokemonAdapter(::onPokemonSelected, ::onMovieSwipe) }
+    private val repository by lazy { App.pokemonRepository }
+    private val adapter by lazy { PokemonAdapter(::onPokemonSelected, ::onPokemonSwiped) }
     private val networkStatusChecker by lazy { NetworkStatusChecker(activity?.getSystemService(ConnectivityManager::class.java)) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +55,7 @@ class MovieListFragment : Fragment() {
     }
 
     private fun initUi(){
-        movieRecyclerView.layoutManager = LinearLayoutManager(context)
+        movieRecyclerView.layoutManager = GridLayoutManager(context, 2)
         movieRecyclerView.adapter = adapter
     }
 
@@ -82,7 +82,7 @@ class MovieListFragment : Fragment() {
     private fun isUserLoggedIn(): Boolean = SharedPrefManager().isUserLoggedIn()
 
     private fun onPokemonSelected(pokemon: Pokemon) {
-        val action = MovieListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(pokemon)
+        val action = PokemonListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(pokemon.id)
         view?.findNavController()?.navigate(action)
     }
 
@@ -115,9 +115,9 @@ class MovieListFragment : Fragment() {
 
     private fun showLoginFragment() = view?.let { Navigation.findNavController(it).navigate(R.id.mainToLogin) }
 
-    private fun onMovieSwipe(movie: Movie) {
+    private fun onPokemonSwiped(pokemon: Pokemon) {
         lifecycleScope.launch {
-            repository.deleteMovie(movie)
+            repository.deletePokemon(pokemon)
         }
     }
 

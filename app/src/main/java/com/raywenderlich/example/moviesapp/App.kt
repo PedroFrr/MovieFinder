@@ -19,7 +19,7 @@ class App() : Application() {
         private lateinit var instance: App
         private val database: MovieDatabase by lazy { MovieDatabase.buildDatabase(instance, applicationScope) }
         val movieRepository: MovieRepository by lazy { MovieRepositoryImpl(database.movieDao()) }
-        val pokemonRemoteApi: PokemonRepository by lazy {PokemonRepositoryImpl(database.pokemonDao())}
+        val pokemonRepository: PokemonRepository by lazy {PokemonRepositoryImpl(database.pokemonDao())}
         private val service by lazy { buildApiService()}
         val remoteApi by lazy {RemoteApi(service)}
 

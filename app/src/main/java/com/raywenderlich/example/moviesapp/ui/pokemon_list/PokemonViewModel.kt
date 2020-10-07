@@ -8,7 +8,7 @@ import com.raywenderlich.example.moviesapp.ui.Pokemon
 
 class PokemonViewModel(application: Application): AndroidViewModel(application){
 
-    private val pokemonRepository by lazy { App.pokemonRemoteApi}
+    private val pokemonRepository by lazy { App.pokemonRepository}
 
     suspend fun loadPokemons(): LiveData<List<Pokemon>> = pokemonRepository.getPokemons()
 

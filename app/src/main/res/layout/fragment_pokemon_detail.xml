@@ -9,12 +9,15 @@
 
     <ImageView
         android:id="@+id/movieDetailImageView"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/list_item_movie_height"
+        android:layout_width="@dimen/card_image_size"
+        android:layout_height="@dimen/card_image_size"
+        android:layout_gravity="center"
         android:contentDescription="@string/detail_image_content_description"
+        android:scaleType="fitXY"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/padding_half"
         tools:srcCompat="@tools:sample/avatars" />
 
     <LinearLayout

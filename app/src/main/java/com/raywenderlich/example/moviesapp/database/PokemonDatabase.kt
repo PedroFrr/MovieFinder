@@ -53,7 +53,7 @@ abstract class MovieDatabase: RoomDatabase(){
             INSTANCE?.let { database ->
                 scope.launch {
                     val playerDao = database.movieDao()
-                    prePopulateDatabase(playerDao)
+//                    prePopulateDatabase(playerDao)
                 }
             }
         }

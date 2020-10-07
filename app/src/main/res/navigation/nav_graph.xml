@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/movieListFragment">
+    app:startDestination="@id/pokemonListFragment">
 
     <fragment
-        android:id="@+id/movieListFragment"
-        android:name="com.raywenderlich.example.moviesapp.ui.movie_list.MovieListFragment"
+        android:id="@+id/pokemonListFragment"
+        android:name="com.raywenderlich.example.moviesapp.ui.movie_list.PokemonListFragment"
         android:label="fragment_movie_list"
         tools:layout="@layout/fragment_movie_list" >
         <action
@@ -23,11 +23,11 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.raywenderlich.example.moviesapp.MovieDetailFragment"
+        android:name="com.raywenderlich.example.moviesapp.PokemonDetailFragment"
         android:label="MovieDetailFragment" >
         <argument
             android:name="movie_id"
-            app:argType="string" />
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/addMovieFragment"
@@ -36,8 +36,8 @@
         tools:layout="@layout/fragment_add_movie" >
         <action
             android:id="@+id/addMovieToMain"
-            app:destination="@id/movieListFragment"
-            app:popUpTo="@id/movieListFragment"
+            app:destination="@id/pokemonListFragment"
+            app:popUpTo="@id/pokemonListFragment"
             app:popUpToInclusive="true"/>
     </fragment>
     <fragment
@@ -47,8 +47,8 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/loginToMain"
-            app:destination="@id/movieListFragment"
-            app:popUpTo="@id/movieListFragment"
+            app:destination="@id/pokemonListFragment"
+            app:popUpTo="@id/pokemonListFragment"
             app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

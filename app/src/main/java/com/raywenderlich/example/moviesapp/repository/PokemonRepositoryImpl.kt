@@ -1,10 +1,13 @@
 package com.raywenderlich.example.moviesapp.repository
 
+import android.net.ConnectivityManager
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.LiveData
 import com.raywenderlich.example.moviesapp.App
 import com.raywenderlich.example.moviesapp.database.dao.PokemonDao
 import com.raywenderlich.example.moviesapp.model.Success
 import com.raywenderlich.example.moviesapp.networking.BASE_URL
+import com.raywenderlich.example.moviesapp.networking.NetworkStatusChecker
 import com.raywenderlich.example.moviesapp.ui.Pokemon
 
 const val IMAGE_BASE_URL = "https://pokeres.bastionbot.org/images/pokemon"
@@ -12,6 +15,7 @@ const val IMAGE_FORMAT = ".png"
 
 class PokemonRepositoryImpl(private val pokemonDao: PokemonDao) : PokemonRepository {
     private val remoteApi by lazy { App.remoteApi }
+
     override suspend fun getPokemons(): LiveData<List<Pokemon>> {
         val result = remoteApi.loadPokemons()
         if (result is Success) {
@@ -33,4 +37,8 @@ class PokemonRepositoryImpl(private val pokemonDao: PokemonDao) : PokemonReposit
         }
         return pokemonDao.getPokemons()
     }
+
+    override suspend fun getPokemonById(pokemonId: Int): Pokemon = pokemonDao.getPokemonById(pokemonId)
+
+    override suspend fun deletePokemon(pokemon: Pokemon) = pokemonDao.deletePokemon(pokemon)
 }
