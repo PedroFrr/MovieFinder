@@ -1,6 +1,5 @@
-package com.raywenderlich.example.moviesapp.ui.movie_list
+package com.raywenderlich.example.moviesapp.ui.pokemon_list
 
-import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -11,16 +10,13 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.raywenderlich.example.moviesapp.App
 import com.raywenderlich.example.moviesapp.R
-import com.raywenderlich.example.moviesapp.networking.NetworkStatusChecker
 import com.raywenderlich.example.moviesapp.ui.ItemTouchHelperCallback
-import com.raywenderlich.example.moviesapp.ui.Pokemon
-import com.raywenderlich.example.moviesapp.ui.movies.PokemonAdapter
-import com.raywenderlich.example.moviesapp.ui.pokemon_list.PokemonViewModel
+import com.raywenderlich.example.moviesapp.ui.pokemons.Pokemon
+import com.raywenderlich.example.moviesapp.ui.pokemons.PokemonAdapter
 import com.raywenderlich.example.moviesapp.utils.prefs.SharedPrefManager
-import kotlinx.android.synthetic.main.fragment_movie_list.*
+import kotlinx.android.synthetic.main.fragment_pokemon_list.*
 import kotlinx.coroutines.launch
 
 
@@ -28,7 +24,6 @@ class PokemonListFragment : Fragment() {
 
     private val repository by lazy { App.pokemonRepository }
     private val adapter by lazy { PokemonAdapter(::onPokemonSelected, ::onPokemonSwiped) }
-    private val networkStatusChecker by lazy { NetworkStatusChecker(activity?.getSystemService(ConnectivityManager::class.java)) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +31,7 @@ class PokemonListFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_movie_list, container, false)
+        return inflater.inflate(R.layout.fragment_pokemon_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,7 +43,7 @@ class PokemonListFragment : Fragment() {
         }else{
             initListeners()
             initUi()
-            loadMovieList()
+            loadPokemonList()
             setupItemTouchHelper()
         }
 
@@ -60,29 +55,29 @@ class PokemonListFragment : Fragment() {
     }
 
     private fun initListeners(){
-        fab.setOnClickListener {
-            showAddMovieFragment()
-        }
+        //TODO enable if we want to add new movies
+//        fab.setOnClickListener {
+//            showAddMovieFragment()
+//        }
     }
 
-    private fun loadMovieList(){
+    private fun loadPokemonList(){
 //        val movieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
         val pokemonViewModel = ViewModelProvider(this).get(PokemonViewModel::class.java)
-        networkStatusChecker.performIfConnectedToInternet {
             activity?.let{
                 lifecycleScope.launch {
                     pokemonViewModel.loadPokemons().observe(it, Observer<List<Pokemon>> { pokemons ->
                         adapter.setData(pokemons)
                     })
                 }
-            }
         }
     }
 
     private fun isUserLoggedIn(): Boolean = SharedPrefManager().isUserLoggedIn()
 
     private fun onPokemonSelected(pokemon: Pokemon) {
-        val action = PokemonListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(pokemon.id)
+        val action =
+            PokemonListFragmentDirections.actionMovieListFragmentToMovieDetailFragment(pokemon.id)
         view?.findNavController()?.navigate(action)
     }
 

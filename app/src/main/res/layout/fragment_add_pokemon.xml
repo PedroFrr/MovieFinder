@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.addMovie.AddMovieFragment">
+    tools:context=".ui.pokemon.AddPokemonFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,42 +19,43 @@
             android:src="@drawable/movie_placeholder" />
 
         <EditText
-            android:id="@+id/movieTitle"
+            android:id="@+id/pokemonName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
-            android:hint="@string/movie_title_hint"
+            android:hint="@string/pokemon_name_hint"
             android:importantForAutofill="no"
             android:inputType="textCapSentences" />
 
         <EditText
-            android:id="@+id/movieReleaseDate"
+            android:id="@+id/pokemonWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
-            android:hint="@string/movie_summary_hint"
+            android:hint="@string/pokemon_weight_hint"
             android:importantForAutofill="no"
-            android:inputType="date" />
+            android:inputType="number" />
 
         <EditText
-            android:id="@+id/movieSummary"
+            android:id="@+id/pokemonHeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
-            android:hint="@string/movie_description_hint"
+            android:hint="@string/pokemon_height_hint"
             android:importantForAutofill="no"
-            android:inputType="textMultiLine"
+            android:inputType="number"
             android:maxLength="240" />
 
 
         <Button
-            android:id="@+id/addMovie"
+            android:id="@+id/addPokemon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
             android:background="@color/colorPrimary"
-            android:text="@string/add_movie_button_text"
+            android:text="@string/add_pokemon_button_text"
             android:textColor="@color/white" />
+
     </LinearLayout>
 
 

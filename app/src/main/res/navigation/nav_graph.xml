@@ -8,9 +8,9 @@
 
     <fragment
         android:id="@+id/pokemonListFragment"
-        android:name="com.raywenderlich.example.moviesapp.ui.movie_list.PokemonListFragment"
+        android:name="com.raywenderlich.example.moviesapp.ui.pokemon_list.PokemonListFragment"
         android:label="fragment_movie_list"
-        tools:layout="@layout/fragment_movie_list" >
+        tools:layout="@layout/fragment_pokemon_list" >
         <action
             android:id="@+id/action_movieListFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
@@ -23,7 +23,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.raywenderlich.example.moviesapp.PokemonDetailFragment"
+        android:name="com.raywenderlich.example.moviesapp.ui.PokemonDetailFragment"
         android:label="MovieDetailFragment" >
         <argument
             android:name="movie_id"

@@ -1,13 +1,10 @@
-package com.raywenderlich.example.moviesapp.ui.movies
+package com.raywenderlich.example.moviesapp.ui.pokemons
 
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.raywenderlich.example.moviesapp.R
-import com.raywenderlich.example.moviesapp.ui.Pokemon
-import kotlinx.android.synthetic.main.list_item_movie.view.*
+import kotlinx.android.synthetic.main.list_item_pokemon.view.*
 
 class PokemonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -23,8 +20,7 @@ class PokemonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             .error(R.drawable.ic_broken_image) //6
             .fallback(R.drawable.ic_no_image) //7
             .into(itemView.movieImage) //8
-        movieTitle.text = pokemon.name
-
+        pokemonName.text = pokemon.name
 
         setOnClickListener { onPokemonSelected(pokemon) }
     }

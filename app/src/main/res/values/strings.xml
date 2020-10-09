@@ -1,10 +1,9 @@
 <resources>
-    <string name="app_name">MoviesApp</string>
-    <string name="title_label">Title</string>
-    <string name="release_date_label">Release date</string>
+    <string name="app_name">PokemonApp</string>
+    <string name="title_label">Weight</string>
+    <string name="release_date_label">Height</string>
     <string name="detail_image_content_description">Detail Image</string>
     <string name="content_description_movie_image">Movie Image</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="movie_title_hint">Movie title</string>
     <string name="movie_description_hint">Movie summary</string>
     <string name="add_movie_button_text">ADD MOVIE</string>

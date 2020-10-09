@@ -20,11 +20,17 @@
         android:layout_marginTop="@dimen/padding_half"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <TextView
+        android:id="@+id/pokemonNameDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        tools:text="Bulbasaur"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
         <TextView
             android:id="@+id/titleLabel"
             android:layout_width="wrap_content"
@@ -32,11 +38,11 @@
             android:text="@string/title_label" />
 
         <TextView
-            android:id="@+id/movieTitleTextView"
+            android:id="@+id/pokemonWeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/padding_half"
-            tools:text="Tenet" />
+            tools:text="10.0" />
     </LinearLayout>
 
     <LinearLayout
@@ -46,17 +52,17 @@
         android:layout_marginTop="@dimen/padding_standard">
 
         <TextView
-            android:id="@+id/releaseDateLabel"
+            android:id="@+id/pokemonHeightLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/release_date_label" />
 
         <TextView
-            android:id="@+id/releaseDateTextView"
+            android:id="@+id/pokemonHeight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/padding_half"
-            tools:text="2020-12-12" />
+            tools:text="90.7" />
     </LinearLayout>
 
 </LinearLayout>

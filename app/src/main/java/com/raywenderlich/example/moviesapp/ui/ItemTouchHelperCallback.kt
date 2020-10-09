@@ -16,7 +16,7 @@ class ItemTouchHelperCallback(
         recyclerView: RecyclerView,
         viewHolder: RecyclerView.ViewHolder
     ): Int {
-        return makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.START or ItemTouchHelper.END)
+        return makeMovementFlags(ItemTouchHelper.UP or ItemTouchHelper.DOWN or ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT, ItemTouchHelper.START or ItemTouchHelper.END)
     }
 
     override fun onMove(
@@ -46,7 +46,7 @@ class ItemTouchHelperCallback(
      */
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         super.clearView(recyclerView, viewHolder)
-        viewHolder?.itemView?.alpha = 1.0f
+        viewHolder.itemView.alpha = 1.0f
     }
 
     override fun isItemViewSwipeEnabled(): Boolean = true

@@ -1,11 +1,10 @@
-package com.raywenderlich.example.moviesapp.ui.movies
+package com.raywenderlich.example.moviesapp.ui.pokemons
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.raywenderlich.example.moviesapp.R
 import com.raywenderlich.example.moviesapp.ui.ItemTouchHelperListener
-import com.raywenderlich.example.moviesapp.ui.Pokemon
 import java.util.*
 
 class PokemonAdapter(
@@ -23,7 +22,7 @@ class PokemonAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item_movie, parent, false)
+            .inflate(R.layout.list_item_pokemon, parent, false)
 
         return PokemonViewHolder(view)
     }

@@ -2,7 +2,7 @@ package com.raywenderlich.example.moviesapp.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.raywenderlich.example.moviesapp.ui.Pokemon
+import com.raywenderlich.example.moviesapp.ui.pokemons.Pokemon
 
 @Dao
 interface PokemonDao {
@@ -20,7 +20,7 @@ interface PokemonDao {
     fun addPokemon(pokemon: Pokemon)
 
     @Query("SELECT * FROM Pokemon LIMIT 1")
-    suspend fun getAnyPokemon(): Pokemon?
+    fun getAnyPokemon(): Pokemon?
 
     @Delete
     suspend fun deletePokemon(pokemon: Pokemon)

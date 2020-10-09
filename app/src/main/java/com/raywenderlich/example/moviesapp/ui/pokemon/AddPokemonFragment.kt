@@ -13,15 +13,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.raywenderlich.example.moviesapp.App
 import com.raywenderlich.example.moviesapp.R
-import com.raywenderlich.example.moviesapp.ui.movies.Movie
 import kotlinx.android.synthetic.main.fragment_add_movie.*
 import kotlinx.coroutines.launch
 
 class AddMovieFragment : Fragment() {
 
-    private val repository by lazy {
-        App.movieRepository
-    }
+    private val pokemonRepo by lazy {App.pokemonRepository}
 
     private var pictureTaken: Boolean = false
     private var imageUri: Uri? = null
@@ -43,7 +40,7 @@ class AddMovieFragment : Fragment() {
 
     private fun initListeners(){
         addMovie.setOnClickListener {
-             createMovie(it)
+             createPokemon(it)
         }
         moviePosterPlaceholder.setOnClickListener {
             takePictureWithCamera()
@@ -68,21 +65,23 @@ class AddMovieFragment : Fragment() {
         }
     }
 
-    private fun createMovie(view: View) {
-        val title = movieTitle.text.toString()
+    private fun createPokemon(view: View) {
+        val title = pokemonName.text.toString()
         val summary = movieSummary.text.toString()
         val releaseDate = movieReleaseDate.text.toString()
 
         if (title.isNotBlank() && summary.isNotBlank()) {
-            val movie = Movie(
-                title = title,
-                summary = summary,
-                releaseDate = releaseDate,
-                poster = R.drawable.creature_cow_01
-            )
+            //TODO add new Pokemon
+//            val movie = Movie(
+//                title = title,
+//                summary = summary,
+//                releaseDate = releaseDate,
+//                poster = R.drawable.creature_cow_01
+//            )
 
             lifecycleScope.launch {
-                repository.addMovie(movie)
+                //TODO add new Pokemon to repo
+//                repository.addMovie(movie)
                 Toast.makeText(activity, getString(R.string.movie_added), Toast.LENGTH_SHORT).show()
                 Navigation.findNavController(view).navigate(R.id.addMovieToMain)
             }
