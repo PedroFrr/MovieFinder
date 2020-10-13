@@ -6,19 +6,21 @@ import com.raywenderlich.example.moviesapp.networking.RemoteApi
 import com.raywenderlich.example.moviesapp.networking.buildApiService
 import com.raywenderlich.example.moviesapp.repository.PokemonRepository
 import com.raywenderlich.example.moviesapp.repository.PokemonRepositoryImpl
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
+import com.raywenderlich.example.moviesapp.viewmodels.AddPokemonViewModelFactory
+import com.raywenderlich.example.moviesapp.viewmodels.PokemonDetailViewModelFactory
+import com.raywenderlich.example.moviesapp.viewmodels.PokemonListViewModelFactory
 
 class App() : Application() {
 
     companion object {
-        private val applicationScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
         private lateinit var instance: App
-        private val DATABASE: PokemonDatabase by lazy { PokemonDatabase.buildDatabase(instance, applicationScope) }
-        val pokemonRepository: PokemonRepository by lazy {PokemonRepositoryImpl(DATABASE.pokemonDao())}
+        private val DATABASE: PokemonDatabase by lazy { PokemonDatabase.buildDatabase(instance) }
         private val service by lazy { buildApiService()}
+        private val pokemonRepository: PokemonRepository by lazy {PokemonRepositoryImpl(DATABASE.pokemonDao())}
         val remoteApi by lazy {RemoteApi(service)}
+        val pokemonListViewModelFactory by lazy { PokemonListViewModelFactory(pokemonRepository)}
+        val pokemonDetailViewModelFactory by lazy { PokemonDetailViewModelFactory(pokemonRepository)}
+        val addPokemonViewModelFactory by lazy { AddPokemonViewModelFactory(pokemonRepository)}
 
         fun getAppContext() = instance
     }

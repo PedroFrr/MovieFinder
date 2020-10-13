@@ -1,4 +1,4 @@
-package com.raywenderlich.example.moviesapp.ui.pokemon_list
+package com.raywenderlich.example.moviesapp.ui.pokemonlist
 
 import android.os.Bundle
 import android.view.*
@@ -13,21 +13,25 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.raywenderlich.example.moviesapp.App
 import com.raywenderlich.example.moviesapp.R
 import com.raywenderlich.example.moviesapp.ui.ItemTouchHelperCallback
-import com.raywenderlich.example.moviesapp.ui.pokemons.Pokemon
+import com.raywenderlich.example.moviesapp.model.Pokemon
 import com.raywenderlich.example.moviesapp.ui.pokemons.PokemonAdapter
 import com.raywenderlich.example.moviesapp.utils.prefs.SharedPrefManager
+import com.raywenderlich.example.moviesapp.viewmodels.PokemonListViewModel
 import kotlinx.android.synthetic.main.fragment_pokemon_list.*
 import kotlinx.coroutines.launch
 
 
 class PokemonListFragment : Fragment() {
 
-    private val repository by lazy { App.pokemonRepository }
     private val adapter by lazy { PokemonAdapter(::onPokemonSelected, ::onPokemonSwiped) }
+    private val viewModel by lazy {
+        ViewModelProvider(this, App.pokemonListViewModelFactory).get(PokemonListViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -55,18 +59,16 @@ class PokemonListFragment : Fragment() {
     }
 
     private fun initListeners(){
-        //TODO enable if we want to add new movies
-//        fab.setOnClickListener {
-//            showAddMovieFragment()
-//        }
+        addPokemonFab.setOnClickListener {
+            showAddMovieFragment()
+        }
     }
 
     private fun loadPokemonList(){
-//        val movieViewModel = ViewModelProvider(this).get(MovieViewModel::class.java)
-        val pokemonViewModel = ViewModelProvider(this).get(PokemonViewModel::class.java)
+        //This is will observe changes to the Pokemon (add/delete) and will act accordingly (in this case update the RecyclerView)
             activity?.let{
                 lifecycleScope.launch {
-                    pokemonViewModel.loadPokemons().observe(it, Observer<List<Pokemon>> { pokemons ->
+                    viewModel.loadPokemons().observe(it, Observer<List<Pokemon>> { pokemons ->
                         adapter.setData(pokemons)
                     })
                 }
@@ -112,7 +114,7 @@ class PokemonListFragment : Fragment() {
 
     private fun onPokemonSwiped(pokemon: Pokemon) {
         lifecycleScope.launch {
-            repository.deletePokemon(pokemon)
+            viewModel.deletePokemon(pokemon)
         }
     }
 

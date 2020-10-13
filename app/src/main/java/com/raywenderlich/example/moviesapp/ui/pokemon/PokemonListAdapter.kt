@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.raywenderlich.example.moviesapp.R
+import com.raywenderlich.example.moviesapp.model.Pokemon
 import com.raywenderlich.example.moviesapp.ui.ItemTouchHelperListener
 import java.util.*
 

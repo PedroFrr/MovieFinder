@@ -1,103 +1,75 @@
-package com.raywenderlich.example.moviesapp.ui.addMovie
+package com.raywenderlich.example.moviesapp.ui.pokemon
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.raywenderlich.example.moviesapp.App
 import com.raywenderlich.example.moviesapp.R
-import kotlinx.android.synthetic.main.fragment_add_movie.*
+import com.raywenderlich.example.moviesapp.utils.hideKeyboard
+import com.raywenderlich.example.moviesapp.viewmodels.AddPokemonViewModel
+import kotlinx.android.synthetic.main.fragment_add_pokemon.*
 import kotlinx.coroutines.launch
 
-class AddMovieFragment : Fragment() {
+class AddPokemonFragment : Fragment() {
 
-    private val pokemonRepo by lazy {App.pokemonRepository}
-
-    private var pictureTaken: Boolean = false
-    private var imageUri: Uri? = null
-
-    companion object {
-        private const val TAKE_PHOTO_REQUEST_CODE = 1
-    }
+    private val viewModel by lazy {ViewModelProvider(this, App.addPokemonViewModelFactory).get(AddPokemonViewModel::class.java)}
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_movie, container, false)
+        return inflater.inflate(R.layout.fragment_add_pokemon, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
-
+        initObservables()
     }
 
     private fun initListeners(){
-        addMovie.setOnClickListener {
-             createPokemon(it)
+        addPokemon.setOnClickListener {
+             createPokemon()
         }
-        moviePosterPlaceholder.setOnClickListener {
-            takePictureWithCamera()
-        }
+        //TODO redo to select avatar from list of monsters like Creaturemon
+//        moviePosterPlaceholder.setOnClickListener {
+//            takePictureWithCamera()
+//        }
     }
 
-    private fun takePictureWithCamera() {
+    private fun createPokemon() {
+        viewModel.name = pokemonName.text.toString()
+        viewModel.height = pokemonHeight.text.toString().toDouble()
+        viewModel.weight = pokemonWeight.text.toString().toDouble()
 
-        val captureIntent = Intent(Intent.ACTION_GET_CONTENT)
-        captureIntent.type = "image/*"
-        startActivityForResult(captureIntent, TAKE_PHOTO_REQUEST_CODE)
-
+        lifecycleScope.launch {
+            viewModel.savePokemon()
+        }
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun initObservables(){
+        activity?.let{
+            viewModel.getSaveLiveData().observe(it, Observer { saved ->
+                saved?.let {
+                    if (it) {
+                        Toast.makeText(activity, getString(R.string.pokemon_added), Toast.LENGTH_SHORT).show()
+                        hideKeyboard()
+                        view?.let{view ->
+                            Navigation.findNavController(view).navigate(R.id.addMovieToMain)
+                        }
 
-        if (requestCode == TAKE_PHOTO_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
-            imageUri = data.data!!
-            moviePosterPlaceholder.setImageURI(imageUri)
+                    } else {
+                        Toast.makeText(activity, getString(R.string.mandatoryAddMovieMessage), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
         }
-    }
-
-    private fun createPokemon(view: View) {
-        val title = pokemonName.text.toString()
-        val summary = movieSummary.text.toString()
-        val releaseDate = movieReleaseDate.text.toString()
-
-        if (title.isNotBlank() && summary.isNotBlank()) {
-            //TODO add new Pokemon
-//            val movie = Movie(
-//                title = title,
-//                summary = summary,
-//                releaseDate = releaseDate,
-//                poster = R.drawable.creature_cow_01
-//            )
-
-            lifecycleScope.launch {
-                //TODO add new Pokemon to repo
-//                repository.addMovie(movie)
-                Toast.makeText(activity, getString(R.string.movie_added), Toast.LENGTH_SHORT).show()
-                Navigation.findNavController(view).navigate(R.id.addMovieToMain)
-            }
-
-
-        } else {
-            activity?.let {
-                Toast.makeText(
-                    activity,
-                    getString(R.string.mandatoryAddMovieMessage),
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-        }
-
 
     }
 }

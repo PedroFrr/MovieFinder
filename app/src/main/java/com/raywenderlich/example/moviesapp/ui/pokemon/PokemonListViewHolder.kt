@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.raywenderlich.example.moviesapp.R
+import com.raywenderlich.example.moviesapp.model.Pokemon
 import kotlinx.android.synthetic.main.list_item_pokemon.view.*
 
 class PokemonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -5,14 +5,14 @@ import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.raywenderlich.example.moviesapp.App
+import com.raywenderlich.example.moviesapp.database.PokemonDatabase
 import com.raywenderlich.example.moviesapp.model.Success
-import com.raywenderlich.example.moviesapp.ui.pokemons.Pokemon
+import com.raywenderlich.example.moviesapp.model.Pokemon
 import com.raywenderlich.example.moviesapp.utils.IMAGE_BASE_URL
 import com.raywenderlich.example.moviesapp.utils.IMAGE_FORMAT
 import kotlinx.coroutines.coroutineScope
 
 class PokemonDatabaseWorker(context: Context, workerParameters: WorkerParameters): CoroutineWorker(context, workerParameters) {
-    private val repository by lazy { App.pokemonRepository}
     private val remoteApi by lazy {App.remoteApi}
 
     override suspend fun doWork(): Result = coroutineScope {
@@ -31,7 +31,8 @@ class PokemonDatabaseWorker(context: Context, workerParameters: WorkerParameters
                         imageUrl = "$IMAGE_BASE_URL/$id$IMAGE_FORMAT"
                     )
                 }
-                repository.addPokemons(pokemons)
+                val database = PokemonDatabase.getInstance(applicationContext)
+                database.pokemonDao().addPokemons(pokemons)
                 Log.d(TAG, "Sync successful")
                 Result.success()
             }else{

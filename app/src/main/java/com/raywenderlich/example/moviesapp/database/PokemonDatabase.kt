@@ -6,12 +6,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.*
-import com.raywenderlich.example.moviesapp.App
 import com.raywenderlich.example.moviesapp.database.dao.PokemonDao
-import com.raywenderlich.example.moviesapp.ui.pokemons.Pokemon
+import com.raywenderlich.example.moviesapp.model.Pokemon
 import com.raywenderlich.example.moviesapp.utils.DATABASE_NAME
 import com.raywenderlich.example.moviesapp.workers.PokemonDatabaseWorker
-import kotlinx.coroutines.CoroutineScope
 import java.util.concurrent.TimeUnit
 
 const val DATABASE_VERSION = 1
@@ -25,7 +23,13 @@ abstract class PokemonDatabase : RoomDatabase() {
 
         private var INSTANCE: PokemonDatabase? = null
 
-        fun buildDatabase(context: Context, coroutineScope: CoroutineScope): PokemonDatabase {
+        fun getInstance(context: Context): PokemonDatabase {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: buildDatabase(context).also { INSTANCE = it }
+            }
+        }
+
+        fun buildDatabase(context: Context): PokemonDatabase {
             val tempInstance = INSTANCE
             if (tempInstance != null) {
                 return tempInstance
@@ -37,7 +41,7 @@ abstract class PokemonDatabase : RoomDatabase() {
                     PokemonDatabase::class.java,
                     DATABASE_NAME
                 )
-                    .addCallback(PlayerDatabaseCallback(coroutineScope, context))
+                    .addCallback(PlayerDatabaseCallback(context))
                     .build()
                 INSTANCE = instance
                 return instance
@@ -45,8 +49,7 @@ abstract class PokemonDatabase : RoomDatabase() {
         }
     }
 
-    private class PlayerDatabaseCallback(private val scope: CoroutineScope, private val context: Context) : RoomDatabase.Callback() {
-        private val remoteApi by lazy { App.remoteApi }
+    private class PlayerDatabaseCallback(private val context: Context) : RoomDatabase.Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             val workManager = WorkManager.getInstance(context)

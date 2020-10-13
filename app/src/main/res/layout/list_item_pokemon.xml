@@ -22,7 +22,7 @@
             android:layout_width="@dimen/card_image_size"
             android:layout_height="@dimen/card_image_size"
             android:layout_gravity="center"
-            android:contentDescription="@string/content_description_movie_image"
+            android:contentDescription="@string/content_description_pokemon_avatar"
             android:scaleType="fitXY"
             tools:srcCompat="@drawable/creature_cat_derp" />
 

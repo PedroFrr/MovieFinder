@@ -2,7 +2,7 @@ package com.raywenderlich.example.moviesapp.database.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.raywenderlich.example.moviesapp.ui.pokemons.Pokemon
+import com.raywenderlich.example.moviesapp.model.Pokemon
 
 @Dao
 interface PokemonDao {
@@ -17,7 +17,7 @@ interface PokemonDao {
     suspend fun addPokemons(pokemons: List<Pokemon>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addPokemon(pokemon: Pokemon)
+    suspend fun addPokemon(pokemon: Pokemon)
 
     @Query("SELECT * FROM Pokemon LIMIT 1")
     fun getAnyPokemon(): Pokemon?

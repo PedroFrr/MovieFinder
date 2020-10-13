@@ -34,7 +34,7 @@
             android:layout_margin="@dimen/default_margin"
             android:hint="@string/pokemon_weight_hint"
             android:importantForAutofill="no"
-            android:inputType="number" />
+            android:inputType="numberDecimal" />
 
         <EditText
             android:id="@+id/pokemonHeight"
@@ -43,7 +43,7 @@
             android:layout_margin="@dimen/default_margin"
             android:hint="@string/pokemon_height_hint"
             android:importantForAutofill="no"
-            android:inputType="number"
+            android:inputType="numberDecimal"
             android:maxLength="240" />
 
 

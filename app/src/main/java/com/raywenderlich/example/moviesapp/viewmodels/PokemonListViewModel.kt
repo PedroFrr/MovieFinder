@@ -1,15 +1,14 @@
-package com.raywenderlich.example.moviesapp.ui.pokemon_list
+package com.raywenderlich.example.moviesapp.viewmodels
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.raywenderlich.example.moviesapp.App
-import com.raywenderlich.example.moviesapp.ui.pokemons.Pokemon
+import androidx.lifecycle.ViewModel
+import com.raywenderlich.example.moviesapp.repository.PokemonRepository
+import com.raywenderlich.example.moviesapp.model.Pokemon
 
-class PokemonViewModel(application: Application): AndroidViewModel(application){
-
-    private val pokemonRepository by lazy { App.pokemonRepository}
+class PokemonListViewModel(private val pokemonRepository: PokemonRepository): ViewModel(){
 
     fun loadPokemons(): LiveData<List<Pokemon>> = pokemonRepository.getPokemons()
+
+    suspend fun deletePokemon(pokemon: Pokemon) = pokemonRepository.deletePokemon(pokemon)
 
 }
