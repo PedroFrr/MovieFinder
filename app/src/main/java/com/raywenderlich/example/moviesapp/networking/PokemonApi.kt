@@ -7,7 +7,7 @@ import com.raywenderlich.example.moviesapp.model.response.PokemonResponse
 
 const val BASE_URL = "https://pokeapi.co/api/v2/"
 
-class RemoteApi(private val apiService: RemoteApiService) {
+class PokemonApi(private val apiService: PokemonApiService) {
 
     suspend fun loadPokemons(): Result<List<PokemonResponse>> =
         try {

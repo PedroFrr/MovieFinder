@@ -1,32 +1,28 @@
-package com.raywenderlich.example.moviesapp.ui.pokemonlist
+package com.raywenderlich.example.moviesapp.ui.pokemon
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
-import com.raywenderlich.example.moviesapp.App
 import com.raywenderlich.example.moviesapp.R
-import com.raywenderlich.example.moviesapp.ui.ItemTouchHelperCallback
 import com.raywenderlich.example.moviesapp.model.Pokemon
-import com.raywenderlich.example.moviesapp.ui.pokemons.PokemonAdapter
+import com.raywenderlich.example.moviesapp.ui.ItemTouchHelperCallback
 import com.raywenderlich.example.moviesapp.utils.prefs.SharedPrefManager
 import com.raywenderlich.example.moviesapp.viewmodels.PokemonListViewModel
 import kotlinx.android.synthetic.main.fragment_pokemon_list.*
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class PokemonListFragment : Fragment() {
 
-    private val adapter by lazy { PokemonAdapter(::onPokemonSelected, ::onPokemonSwiped) }
-    private val viewModel by lazy {
-        ViewModelProvider(this, App.pokemonListViewModelFactory).get(PokemonListViewModel::class.java)
-    }
+    private val adapter by lazy { PokemonListAdapter(::onPokemonSelected, ::onPokemonSwiped) }
+    private val viewModel : PokemonListViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,5 +113,6 @@ class PokemonListFragment : Fragment() {
             viewModel.deletePokemon(pokemon)
         }
     }
+
 
 }

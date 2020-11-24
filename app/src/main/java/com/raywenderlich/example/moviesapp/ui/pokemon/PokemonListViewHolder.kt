@@ -1,4 +1,4 @@
-package com.raywenderlich.example.moviesapp.ui.pokemons
+package com.raywenderlich.example.moviesapp.ui.pokemon
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -7,7 +7,7 @@ import com.raywenderlich.example.moviesapp.R
 import com.raywenderlich.example.moviesapp.model.Pokemon
 import kotlinx.android.synthetic.main.list_item_pokemon.view.*
 
-class PokemonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class PokemonListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 
     fun showData(

@@ -1,4 +1,4 @@
-package com.raywenderlich.example.moviesapp.ui.pokemons
+package com.raywenderlich.example.moviesapp.ui.pokemon
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,11 +8,11 @@ import com.raywenderlich.example.moviesapp.model.Pokemon
 import com.raywenderlich.example.moviesapp.ui.ItemTouchHelperListener
 import java.util.*
 
-class PokemonAdapter(
+class PokemonListAdapter(
     private val onPokemonSelected: (Pokemon) -> Unit,
     private val onPokemonSwiped: (Pokemon) -> Unit
 ) :
-    RecyclerView.Adapter<PokemonViewHolder>(), ItemTouchHelperListener {
+    RecyclerView.Adapter<PokemonListViewHolder>(), ItemTouchHelperListener {
     private val pokemons = mutableListOf<Pokemon>()
 
     fun setData(newPokemons: List<Pokemon>) {
@@ -21,14 +21,14 @@ class PokemonAdapter(
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonListViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.list_item_pokemon, parent, false)
 
-        return PokemonViewHolder(view)
+        return PokemonListViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: PokemonViewHolder, position: Int) = holder.showData(pokemons[position], onPokemonSelected)
+    override fun onBindViewHolder(holder: PokemonListViewHolder, position: Int) = holder.showData(pokemons[position], onPokemonSelected)
 
     override fun getItemCount(): Int = pokemons.size
 

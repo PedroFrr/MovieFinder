@@ -11,4 +11,6 @@ interface PokemonRepository {
     suspend fun addPokemons(pokemons: List<Pokemon>)
     suspend fun addPokemon(pokemon: Pokemon)
 
+    suspend fun loadPokemons()
+
 }

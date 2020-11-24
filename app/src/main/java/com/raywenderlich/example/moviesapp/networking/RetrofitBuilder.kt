@@ -22,8 +22,8 @@ fun buildRetrofit(): Retrofit {
     return Retrofit.Builder()
         .client(buildClient())
         .baseUrl(BASE_URL)
-        .addConverterFactory(Json.nonstrict.asConverterFactory(contentType))
+        .addConverterFactory(Json.asConverterFactory(contentType))
         .build()
 }
 
-fun buildApiService(): RemoteApiService = buildRetrofit().create(RemoteApiService::class.java)
+fun buildApiService(): PokemonApiService = buildRetrofit().create(PokemonApiService::class.java)

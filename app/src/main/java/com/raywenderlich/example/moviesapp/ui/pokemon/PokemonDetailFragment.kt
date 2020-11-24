@@ -5,21 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.raywenderlich.example.moviesapp.App
 import com.raywenderlich.example.moviesapp.R
 import com.raywenderlich.example.moviesapp.viewmodels.PokemonDetailViewModel
 import kotlinx.android.synthetic.main.fragment_pokemon_detail.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PokemonDetailFragment() : Fragment() {
 
-    private val viewModel by lazy {
-        ViewModelProvider(this, App.pokemonDetailViewModelFactory).get(PokemonDetailViewModel::class.java)
-    }
+    private val viewModel : PokemonDetailViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,16 +54,4 @@ class PokemonDetailFragment() : Fragment() {
         }
     }
 
-    companion object {
-
-        private const val EXTRA_MOVIE_ID = "EXTRA_MOVIE_ID"
-
-        fun newInstance(movieId: Int): PokemonDetailFragment {
-            val bundle = Bundle()
-            bundle.putInt(EXTRA_MOVIE_ID, movieId)
-            val fragment = PokemonDetailFragment()
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
 }

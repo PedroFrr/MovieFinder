@@ -10,17 +10,15 @@ import com.raywenderlich.example.moviesapp.R
 import com.raywenderlich.example.moviesapp.utils.hideKeyboard
 import com.raywenderlich.example.moviesapp.utils.prefs.SharedPrefManager
 import kotlinx.android.synthetic.main.fragment_login.*
+import org.koin.android.ext.android.inject
 
 
 class LoginFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private val prefs by inject<SharedPrefManager>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
@@ -28,35 +26,28 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val prefs = SharedPrefManager()
         loginButton.setOnClickListener {
-            if(isLoginValid()){
+            if (isLoginValid()) {
                 saveLoginStatus()
                 redirectUserToMain(view)
             }
         }
     }
 
-    private fun isLoginValid(): Boolean  {
+    private fun isLoginValid(): Boolean {
         val username = usernameEditText.text.toString()
         val password = passwordEditText.text.toString()
 
         return username.length >= 4 && password.length >= 4
     }
 
-    private fun saveLoginStatus(){
-        val prefs = SharedPrefManager()
+    private fun saveLoginStatus() {
         prefs.setUserLoggedIn(true)
     }
 
-    private fun redirectUserToMain(view: View){
+    private fun redirectUserToMain(view: View) {
         this.hideKeyboard()
         Navigation.findNavController(view).navigate(R.id.loginToMain)
     }
 
-    companion object {
-
-        fun newInstance() = LoginFragment()
-
-    }
 }
